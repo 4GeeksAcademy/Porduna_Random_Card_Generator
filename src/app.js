@@ -1,27 +1,28 @@
 /* eslint-disable */
-import "bootstrap";
-import "./style.css";
+import 'bootstrap';
+import './style.css';
 
-window.onload = function() {
-  //write your code here
-  console.log("Hello Rigo from the console!");
+window.onload = function () {
+  RandomCard();
 };
-const suit = ["♥", "♣", "♦", "♠"];
-const numbers = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
 
-function generateRandomCard() {
-  const randomSuit = suit[Math.floor(Math.random() * suit.length)];
-  const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
-  const suitColor =
-    randomSuit === "♥" || randomSuit === "♦" ? "text-danger" : "text-black";
-  return `
-    <div class=" card-font align-self-start ${suitColor}">${randomSuit}</div>
-    <div class="card-font fw-bold">${randomNumber}</div>
-    <div class="rotated card-font align-self-end ${suitColor}">${randomSuit}</div>
-  `;
+function RandomCard() {
+  let suits = ['♥', '♣', '♦', '♠'];
+  let numbers = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  let indexSuits = suits[Math.floor(Math.random() * suits.length)];
+  let indexNumbers = numbers[Math.floor(Math.random() * numbers.length)];
+  // To show suits and numbers
+  document.querySelector('#top').innerHTML = [indexSuits]
+  document.querySelector('#end').innerHTML = [indexSuits]
+  document.querySelector('#number').innerHTML = [indexNumbers]
+  // To show proper color
+  let newColor = indexSuits === '♥' || indexSuits === '♦' ? 'text-danger' : 'text-dark';
+  document.querySelector('#top').className = newColor;
+  document.querySelector('#end').className = newColor;
+  document.querySelector('#number').className = newColor;
 }
-function generateCard() {
-  const card = document.getElementById("card");
-  card.innerHTML = generateRandomCard();
-}
-window.onload = generateCard();
+//Autorefresh
+setInterval(() => RandomCard(), 5000)
+//Refresh button
+document.querySelector('#newCard').addEventListener('click', () => RandomCard())
+
